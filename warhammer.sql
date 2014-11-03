@@ -7,13 +7,13 @@ SET search_path = warhammer, public;
 DROP TABLE IF EXISTS unit_list;
 CREATE TABLE unit_list(
    
-   Army (varchar)
-   Army_id (int)
-   Unit Name (varchar)
-   Unit ID (serial)
-   Unit Profile (varchar)
-   Unit Type (varchar)
-   Unit Composition (varchar)
+   army (varchar)
+   army_id (int)
+   unit_name (varchar)
+   unit_id (serial)
+   unit_profile (varchar)
+   unit_type (varchar)
+   unit_composition (varchar)
    init_point_cost (int)
    additional_unit_cost (int)
    add_num_units(int)
@@ -47,3 +47,13 @@ INSERT INTO unit_list('Space Marines', 1, 'Terminator Squad', default, 'Elites',
    
 DROP TABLE IF EXISTS weapons;
 CREATE TABLE weapons(
+
+   
+   weapon_name (varchar)
+   range (int)
+   strength (int)
+   armor_penetration (int)
+   wep_type (varchar)
+   )
+   
+INSERT INTO weapons();
