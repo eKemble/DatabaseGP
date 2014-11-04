@@ -54,6 +54,12 @@ CREATE TABLE weapons(
    strength (int)
    armor_penetration (int)
    wep_type (varchar)
+   add_point_cost (int)
    )
    
-INSERT INTO weapons();
+--Tactical Squad
+INSERT INTO weapons('Bolt Pistol', 12, 4, 5, 'Pistol', 0);
+INSERT INTO weapons('Boltgun', 24, 4, 5, 'Rapid Fire', 0);
+INSERT INTO weapons('Frag Grenades', 8, 3, null, 'Assualt1, Blast', 0);
+INSERT INTO weapons('Krak Grenades', 8, 3, null, 'Assualt1, Blast', 0);
+
