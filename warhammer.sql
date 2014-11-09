@@ -48,18 +48,24 @@ INSERT INTO unit_list('Space Marines', 1, 'Terminator Squad', default, 'Elites',
 DROP TABLE IF EXISTS weapons;
 CREATE TABLE weapons(
 
-   
+   army_id(varchar)
+   weapon_id(serial)
    weapon_name (varchar)
    range (int)
    strength (int)
    armor_penetration (int)
    wep_type (varchar)
-   add_point_cost (int)
+   add_point_cost (int)   --How are you calculating this? added point cost differs for different units, leaving at 0 for now
    )
    
---Tactical Squad
-INSERT INTO weapons('Bolt Pistol', 12, 4, 5, 'Pistol', 0);
-INSERT INTO weapons('Boltgun', 24, 4, 5, 'Rapid Fire', 0);
-INSERT INTO weapons('Frag Grenades', 8, 3, null, 'Assualt1, Blast', 0);
-INSERT INTO weapons('Krak Grenades', 8, 3, null, 'Assualt1, Blast', 0);
+INSERT INTO weapons(1, default, 'Assualt Cannon', 24, 6, 4, 'Heavy4, Rending');
+INSERT INTO weapons(1, default, 'Astartes Grenade Launcher (Frag)', 24, 3, 6, 'Rapid Fire, Blast');
+INSERT INTO weapons(1, default, 'Astartes Grenade Launcher (Krak)', 24, 6, 4, 'Rapid Fire');
+INSERT INTO weapons(1, default, 'Auxiliary Grenade Launcher (Frag)', 12, 3, 6, 'Assault1, Blast');
+INSERT INTO weapons(1, default, 'Auxiliary Grenade Launcher (Krak)', 12, 6, 4, 'Assault1');
+INSERT INTO weapons(1, default, 'Boltgun', 24, 4, 5, 'Rapid Fire', 0);
+INSERT INTO weapons(1, default, 'Bolt Pistol', 12, 4, 5, 'Pistol', 0);
+INSERT INTO weapons(1, default, 'Chain Fist', null, 
+INSERT INTO weapons(1, default, 'Frag Grenades', 8, 3, null, 'Assualt1, Blast', 0);
+INSERT INTO weapons(1, default, 'Krak Grenades', 8, 3, null, 'Assualt1, Blast', 0);
 
