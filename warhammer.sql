@@ -36,8 +36,12 @@ CREATE TABLE unit_list(
 
 
 INSERT INTO unit_list('Space Marines', 1, 'Master of the Forge', default, 'HQ', 'Infantry', '1 Master of the Forge', 100, null, null, 4, 5, 4, 4, 2, 4, 2, 10, 2);
+INSERT INTO unit_list('Space Marines', 1, 'Forgefather Vulkan HeStan', default, 'HQ', 'Infantry', '1(Unique)', 190, null, null, 6, 5, 4, 4, 3, 5, 3, 10, 2);
+INSERT INTO unit_list('Space Marines', 1, 'Space Marine Chaplain', default, 'HQ', 'Infantry', '1 Chaplain', 100, null, null, 5, 4, 4, 4, 2, 4, 2, 10,	3);
 INSERT INTO unit_list('Space Marines', 1, 'Tactical Squad', default, 'Troops', 'Infantry', '5 Space Marines', 90, 16, 5, 4, 4, 4, 4, 1, 4, 1, 8, 3);
+INSERT INTO unit_list('Space Marines', 1, 'Scout Squad', default, 'Troops', 'Infantry', '5 Scouts', 75, 13, 3,	3,	4,	4,	1,	4,	1,	8,	4,);
 INSERT INTO unit_list('Space Marines', 1, 'Terminator Squad', default, 'Elites', 'Infantry', '5 Terminators', 200, 40, 5, 4, 4, 4, 4, 1, 4, 2, 9, 2);
+
 
    -- Separate table for special rules
    
