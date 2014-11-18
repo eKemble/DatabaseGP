@@ -88,5 +88,11 @@ INSERT INTO weapons(1, default, 'Meltagun', 12, 8, 1, 'Assault1, Melta', 0);
 INSERT INTO weapons(1, default, 'Missile Launcher (Frag / Krak)', '48 / 48', '4 / 8', '6 / 3', 'Heavy1, Blast / Heavy1', 0);
 INSERT INTO weapons(1, default, 'Multi-Melta', 24, 8, 1, 'Heavy1, Melta', 0);
 INSERT INTO weapons(1, default, 'Plasma Cannon', 36, 7, 2, 'Heavy1, Blast, Gets Hot!', 0);
-
-
+INSERT INTO weapons(1, default, 'Plasma Gun', 24, 7, 2, 'Rapid Fire, Gets Hot!', 0);
+INSERT INTO weapons(1, default, 'Plasma Pistol', 12, 7, 2, 'Pistol, Gets Hot!', 0);
+INSERT INTO weapons(1, default, 'Shotgun', 12, 4, '-', 'Assault2', 0);
+INSERT INTO weapons(1, default, 'Sniper Rifle', 36, 'X', 6, 'Heavy1, Sniper', 0);
+INSERT INTO weapons(1, default, 'Storm Bolter', 24, 4, 5, 'Assault2', 0);
+INSERT INTO weapons(1, default, 'Thunderfire Cannon (Surface/ Airfire/ Subterranian)', '60 / 60 / 60', '6 / 5 / 4', '5 / 6 / - ', 'Heavy4, Blast / Heavy4, Blast, Ignore Cover / Heavy4, Blast, Tremor', 0);
+INSERT INTO weapons(1, default, 'Typhoon Missile Launcher (Frag / Krak)', '48 / 48', '4 / 8', '6 / 3', 'Heavy2, Blast / Heavy2', 0);
+INSERT INTO weapons(1, default, 'Vengence round', 18, 4, 3, 'Rapid Fire, Gets Hot!', 0);
