@@ -82,6 +82,11 @@ INSERT INTO weapons(1, default, 'Heavy Flamer', 36, 5, 4, 'Assault1', 0);
 INSERT INTO weapons(1, default, 'Hellfire round', 24, 'X', 5, 'Rapid Fire, Poisoned(2+)', 0);
 INSERT INTO weapons(1, default, 'Hellfire shell', 36, 'X', '-', 'Heavy1, Blast, Poisoned(2+)', 0);
 INSERT INTO weapons(1, default, 'Krak Grenades', 8, 3, null, 'Assualt1, Blast', 0);
+INSERT INTO weapons(1, default, 'Kraken Bolt', 30, 4, 4, 'Rapid Fire', 0);
 INSERT INTO weapons(1, default, 'Lascannon', 48, 9, 2, 'Heavy1', 0);
+INSERT INTO weapons(1, default, 'Meltagun', 12, 8, 1, 'Assault1, Melta', 0);
+INSERT INTO weapons(1, default, 'Missile Launcher (Frag / Krak)', '48 / 48', '4 / 8', '6 / 3', 'Heavy1, Blast / Heavy1', 0);
+INSERT INTO weapons(1, default, 'Multi-Melta', 24, 8, 1, 'Heavy1, Melta', 0);
+INSERT INTO weapons(1, default, 'Plasma Cannon', 36, 7, 2, 'Heavy1, Blast, Gets Hot!', 0);
 
 
