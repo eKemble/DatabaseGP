@@ -7,12 +7,10 @@ SET search_path = warhammer, public;
 DROP TABLE IF EXISTS unit_list;
 CREATE TABLE unit_list(
    
-   army (varchar)
    army_id (int)
    unit_name (varchar)
    unit_id (serial)
    unit_profile (varchar)
-   unit_type (varchar)
    unit_composition (varchar)
    init_point_cost (int)
    additional_unit_cost (int)
@@ -32,15 +30,47 @@ CREATE TABLE unit_list(
    save (int)
 -------------------------
 
-)
+);
 
+--Army id of 1 = Space Marines
 
-INSERT INTO unit_list('Space Marines', 1, 'Master of the Forge', default, 'HQ', 'Infantry', '1 Master of the Forge', 100, null, null, 4, 5, 4, 4, 2, 4, 2, 10, 2);
-INSERT INTO unit_list('Space Marines', 1, 'Forgefather Vulkan HeStan', default, 'HQ', 'Infantry', '1(Unique)', 190, null, null, 6, 5, 4, 4, 3, 5, 3, 10, 2);
-INSERT INTO unit_list('Space Marines', 1, 'Space Marine Chaplain', default, 'HQ', 'Infantry', '1 Chaplain', 100, null, null, 5, 4, 4, 4, 2, 4, 2, 10,	3);
-INSERT INTO unit_list('Space Marines', 1, 'Tactical Squad', default, 'Troops', 'Infantry', '5 Space Marines', 90, 16, 5, 4, 4, 4, 4, 1, 4, 1, 8, 3);
-INSERT INTO unit_list('Space Marines', 1, 'Scout Squad', default, 'Troops', 'Infantry', '5 Scouts', 75, 13, 3,	3,	4,	4,	1,	4,	1,	8,	4,);
-INSERT INTO unit_list('Space Marines', 1, 'Terminator Squad', default, 'Elites', 'Infantry', '5 Terminators', 200, 40, 5, 4, 4, 4, 4, 1, 4, 2, 9, 2);
+INSERT INTO unit_list( 1, 'Master of the Forge', default, 'HQ', '1 Master of the Forge', 100, null, null, 4, 5, 4, 4, 2, 4, 2, 10, 2);
+INSERT INTO unit_list(1, 'Forgefather Vulkan HeStan', default, 'HQ', '1(Unique)', 190, null, null, 6, 5, 4, 4, 3, 5, 3, 10, 2);
+INSERT INTO unit_list(1, 'Space Marine Chaplain', default, 'HQ', '1 Chaplain', 100, null, null, 5, 4, 4, 4, 2, 4, 2, 10, 3);
+INSERT INTO unit_list(1, 'Tactical Squad', default, 'Troops', '5 Space Marines', 90, 16, 5, 4, 4, 4, 4, 1, 4, 1, 8, 3);
+INSERT INTO unit_list(1, 'Scout Squad', default, 'Troops', '5 Scouts', 75, 13, 5, 3, 3, 4, 4, 1, 4, 1, 8, 4);
+INSERT INTO unit_list(1, 'Terminator Squad', default, 'Elites', '5 Terminators', 200, 40, 5, 4, 4, 4, 4, 1, 4, 2, 9, 2);
+INSERT INTO unit_list(1, 'Techmarine', default, 'Elites', '1 Techmarine', 50, null, null, 4, 4, 4, 4, 1, 4, 1, 8, 2);
+
+DROP TABLE IF EXISTS vehicle_list;
+CREATE TABLE vehicle_list(
+
+   army_id (int)
+   vehicle_name (varchar)
+   vehicle_id (serial), 
+   vehicle_profile (varchar)
+   init_point_cost (int)
+   
+--------------------------
+-- Inside the outlined box
+--------------------------
+   weapon_skill (int)
+   ballistic_skill (int)
+   strength (int)
+   front_armor(int)
+   side_armor(int)
+   rear_armor(int)
+   initiative (int)
+   attacks (int)
+);
+
+INSERT INTO vehicle_list( 1,'Rhino', default, 'Dedicated Transport', 35, null, 4, null, 11, 11, 10, null, null);
+INSERT INTO vehicle_list( 1,'Drop Pod', default, 'Dedicated Transport', 35, null, 4, null, 12, 12, 12, null, null);
+INSERT INTO vehicle_list( 1,'Dreadnought', default, 'Elite', 105, 4, 4, 6, 12, 12, 10, 4, 2);
+INSERT INTO vehicle_list( 1,'Land Raider', default, 'Heavy Support', 250, null, 4, null, 14, 14, 14, null, null);
+INSERT INTO vehicle_list( 1,'Predator', default, 'Heavy Support', 60, null, 4, null, 13, 11, 10, null, null);
+INSERT INTO vehicle_list( 1,'Whirlwind', default, 'Heavy Support', 85, null, 4, null, 11, 11, 10, null, null);
+INSERT INTO vehicle_list( 1,'Vindicator', default, 'Heavy Support' 115, null, 4, null, 13, 11, 10, null, null);
 
 
    -- Separate table for special rules
