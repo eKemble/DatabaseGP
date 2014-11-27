@@ -6,28 +6,28 @@ SET search_path = warhammer, public;
 
 DROP TABLE IF EXISTS unit_list;
 CREATE TABLE unit_list(
-   
-   army_id (int)
-   unit_name (varchar)
-   unit_id (serial)
-   unit_profile (varchar)
-   unit_composition (varchar)
-   init_point_cost (int)
-   additional_unit_cost (int)
-   add_num_units(int)
+
+   army_id INT NOT NULL,
+   unit_name VARCHAR(30) NOT NULL,
+   unit_id SERIAL NOT NULL,
+   unit_profile VARCHAR(20) NOT NULL,
+   unit_composition VARCHAR(30) NOT NULL,
+   init_point_cost INT NOT NULL,
+   additional_unit_cost INT,
+   add_num_units INT, 
    
 --------------------------
 -- Inside the outlined box
 --------------------------
-   weapon_skill (int)
-   ballistic_skill (int)
-   strength (int)
-   toughness (int)
-   wounds (int)
-   initiative (int)
-   attacks (int)
-   leadership (int)
-   save (int)
+   weapon_skill INT NOT NULL,
+   ballistic_skill INT NOT NULL,
+   strength INT NOT NULL,
+   toughness INT NOT NULL,
+   wounds INT NOT NULL,
+   initiative INT NOT NULL,
+   attacks INT NOT NULL,
+   leadership INT NOT NULL
+   save INT NOT NULL
 -------------------------
 
 );
@@ -58,23 +58,23 @@ INSERT INTO unit_list(2, 'Deffkoptas', default, 'Fast Attack', '1 Deffkopta', 35
 DROP TABLE IF EXISTS vehicle_list;
 CREATE TABLE vehicle_list(
 
-   army_id (int)
-   vehicle_name (varchar)
-   vehicle_id (serial), 
-   vehicle_profile (varchar)
-   init_point_cost (int)
+   army_id INT NOT NULL,
+   vehicle_name VARCHAR(30) NOT NULL,
+   vehicle_id SERIAL NOT NULL, 
+   vehicle_profile VARCHAR(30),
+   init_point_cost INT NOT NULL,
    
 --------------------------
 -- Inside the outlined box
 --------------------------
-   weapon_skill (int)
-   ballistic_skill (int)
-   strength (int)
-   front_armor(int)
-   side_armor(int)
-   rear_armor(int)
-   initiative (int)
-   attacks (int)
+   weapon_skill  INT,
+   ballistic_skill INT NOT NULL,
+   strength INT,
+   front_armor INT NOT NULL,
+   side_armor INT NOT NULL,
+   rear_armor INT NOT NULL,
+   initiative  INT,
+   attacks INT
 );
 
 INSERT INTO vehicle_list( 1, 'Rhino', default, 'Dedicated Transport', 35, null, 4, null, 11, 11, 10, null, null);
@@ -93,7 +93,7 @@ INSERT INTO vehicle_list( 2, 'Looted Wagon', default, 'Heavy Support', 35, null,
 
 
    -- Separate table for special rules
-   
+   -- No time to add in special rules
    
    
    -- Separate table for weapon loadout choices
@@ -101,15 +101,15 @@ INSERT INTO vehicle_list( 2, 'Looted Wagon', default, 'Heavy Support', 35, null,
 DROP TABLE IF EXISTS weapons;
 CREATE TABLE weapons(
 
-   army_id(varchar)
-   weapon_id(serial)
-   weapon_name (varchar)
-   range (varchar)
-   strength (varchar)
-   armor_penetration (varchar)
-   wep_type (varchar)
-   add_point_cost (int)   --How are you calculating this? added point cost differs for different units, leaving at 0 for now
-   )
+   army_id INT NOT NULL,
+   weapon_id SERIAL NOT NULL,
+   weapon_name VARCHAR(25) NOT NULL,
+   range VARCHAR(30),
+   strength VARCHAR(30),
+   armor_penetration VARCHAR(30),
+   wep_type VARCHAR(30),
+   add_point_cost INT   --How are you calculating this? added point cost differs for different units, leaving at 0 for now
+   );
    
 INSERT INTO weapons(1, default, 'Assualt Cannon', 24, 6, 4, 'Heavy4, Rending', 0);
 INSERT INTO weapons(1, default, 'Astartes Grenade Launcher (Frag / Krak)', '24 / 24', '3 / 6', '6 / 4', 'Rapid Fire, Blast / Rapid Fire', 0);
