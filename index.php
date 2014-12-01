@@ -18,7 +18,7 @@
 
 
 <?php
-	$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password= ") or die('Could not connect: ' . pg_last_error());
+	$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user=awkppf password=7PKNHqIs") or die('Could not connect: ' . pg_last_error());
 	$budget = 2000;
 
 	if(isset($_POST['submit'])){
@@ -73,7 +73,7 @@
 	function print_army_table()
 	{
 		//this query is pretty disgusting but the code isn't due yet
-		$result = pg_query("SELECT unit_name as \"Name\",unit_composition as \"Composition\",unit_list.strength as \"Strength\",toughness as \"Toughness\",wounds as \"Wounds\",initiative as \"Initiative\",attacks as \"Attacks\",leadership as \"Leadership\",save as \"Save\", weapon_name as \"Weapon Name\",range as \"Weapon Range\",weapons.strength as \"Weapon Strength\",armor_penetration as \"Armor Penetration\",user_army.point_cost as \"Point Cost\" FROM warhammer.user_army INNER JOIN warhammer.unit_list ON (warhammer.user_army.unit_id = warhammer.unit_list.unit_id) LEFT JOIN warhammer.weapons ON (warhammer.user_army.weapon_id = warhammer.weapons.weapon_id) ORDER BY point_cost DESC") or die('Query failed: ' . pg_last_error());
+		$result = pg_query("SELECT unit_name as \"Name\",unit_composition as \"Composition\",unit_list.strength as \"Strength\",toughness as \"Toughness\",wounds as \"Wounds\",initiative as \"Initiative\",attacks as \"Attacks\",leadership as \"Leadership\",save as \"Save\", weapon_name as \"Weapon Name\",range as \"Weapon Range\",weapons.strength as \"Weapon Strength\",armor_penetration as \"Armor Penetration\",user_army.point_cost as \"Point Cost\" FROM warhammer.user_army INNER JOIN warhammer.unit_list ON (warhammer.user_army.unit_id = warhammer.unit_list.unit_id) LEFT JOIN warhammer.weapons ON (warhammer.user_army.weapon_id = warhammer.weapons.weapon_id) ORDER BY point_cost DESC, unit_composition ASC") or die('Query failed: ' . pg_last_error());
 		// Printing results in HTML
 		echo "<table border=\"1\">\n";
 		echo "\t<tr>\n";
