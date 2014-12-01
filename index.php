@@ -9,7 +9,8 @@
 </div>
 
 
-<h1 id="quote">Burn the Heretic. Kill the Mutant. Purge the Unclean!</h1>
+<h1>WARHAMMER 40,000 ARMY COMPANION</h1>
+<h3 id="quote">Burn the Heretic. Kill the Mutant. Purge the Unclean!</h3>
 </head>
 
 <body>
