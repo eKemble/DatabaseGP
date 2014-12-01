@@ -23,10 +23,10 @@
 	//   if ($_POST['army'] == 1){
 	      	echo "<form action=\"../GroupProject/index.php\" method='post'>
 	           <select name=\"unit\">";
-	       	$result = pg_query("SELECT unit_name,init_point_cost FROM warhammer.unit_list") or die('Query failed: ' . pg_last_error());
+	       	$result = pg_query("SELECT unit_id,unit_name,init_point_cost FROM warhammer.unit_list") or die('Query failed: ' . pg_last_error());
 			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
 			{
-				echo "<option value=\"" . $line["init_point_cost"] . "\" selected=\"selected\">" . $line["unit_name"] ." - ". $line["init_point_cost"] ."</option>";
+				echo "\t\t<option value=\"" . $line["unit_id"] . "\" selected=\"selected\">" . $line["unit_name"] ." - ". $line["init_point_cost"] ."</option>\n";
 	        }	
 	        echo "</select>";
 	  // loop the above option tag to have a drop down selecter for the available army units
