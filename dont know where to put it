@@ -1,0 +1,20 @@
+///cai
+   	
+   		if(isset($_POST['update_weapon'])){
+		update_weapon($_POST['unit_num'], $_POST['weapon_id']);
+		}
+      	echo "<form action=\"index.php\" method='post'>
+           <select name=\"user_army\">\n";
+       	$result = pg_query("SELECT unit_num, unit_name FROM warhammer.unit_list, warhammer.user_army  WHERE user_army.unit_id = unit_list.unit_id") or die('Query failed: ' . pg_last_error());
+		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
+		{
+			echo "\t\t<option value=\"" . $line["unit_num"] . "\" selected=\"selected\">" . $line["unit_num"] ." - ". $line["unit_name"] ."</option>\n";
+        }	
+        echo "</select>\n";
+        echo "Enter weapon_id";
+        echo "<input type=\"text\" name=\"weapon_id\">";
+        //
+ 		echo "	<input type=\"submit\" name=\"update_weapon\" value=\"update\">\n";
+		echo "		</form>\n";
+		
+   ///cai
