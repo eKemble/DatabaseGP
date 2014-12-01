@@ -22,6 +22,9 @@
 	if(isset($_POST['submit'])){
 		add_unit_to_army($_POST['unit']);
 	}
+	if(isset($_POST['clear'])){
+		pg_query("DELETE FROM warhammer.user_army");
+	}
 //   if ($_POST['army'] == 1){
       	echo "<form action=\"index.php\" method='post'>
            <select name=\"unit\">\n";
@@ -33,8 +36,32 @@
         echo "</select>\n";
   // loop the above option tag to have a drop down selecter for the available army units
  		echo "	<input type=\"submit\" name=\"submit\" value=\"Add Unit\">\n";
+ 		echo "	<input type=\"submit\" name=\"clear\" value=\"Clear All\">\n";
+
 		echo "		</form>\n";
 	//}
+
+		//this query is pretty disgusting but the code isn't due yet
+		$result = pg_query("SELECT unit_name as \"Name\",unit_composition as \"Composition\",unit_list.strength as \"Strength\",toughness as \"Toughness\",wounds as \"Wounds\",initiative as \"Initiative\",attacks as \"Attacks\",leadership as \"Leadership\",save as \"Save\", weapon_name as \"Weapon Name\",range as \"Weapon Range\",weapons.strength as \"Weapon Strength\",armor_penetration as \"Armor Penetration\",user_army.point_cost as \"Point Cost\" FROM warhammer.user_army INNER JOIN warhammer.unit_list ON (warhammer.user_army.unit_id = warhammer.unit_list.unit_id) LEFT JOIN warhammer.weapons ON (warhammer.user_army.weapon_id = warhammer.weapons.weapon_id) ORDER BY point_cost DESC") or die('Query failed: ' . pg_last_error());
+	// Printing results in HTML
+	echo "<table border=\"1\">\n";
+	echo "\t<tr>\n";
+	for ($i = 0; $i < pg_num_fields($result); $i++)
+	{
+		$colname = pg_field_name($result,$i);
+		echo "\t\t<th>$colname</th>\n";
+	}
+	echo "\t</tr>\n";
+	while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
+	{
+		echo "\t<tr>\n";
+		foreach ($line as $col_value)
+		{
+			echo "\t\t<td>$col_value</td>\n";
+		}
+		echo "\t</tr>\n";
+	}
+	echo "</table>\n";
 	pg_free_result($result);
 
 	function add_unit_to_army($unit_id)
