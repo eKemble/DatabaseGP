@@ -27,6 +27,7 @@ their own army. Each unit has their own specific abilities and their own separat
 design and implementation of the site. The automatic dice-rolling feature was designed by Jacob Nailor. The battle calculator was created by Austin Kauble,
 along with overall design of the army builder. Brett Strouse was also responsible for design of the army builder as was Siting Cai.
 
+	There was much to learn while building this application. One thing we learned 
 
 </p>
 <br>
