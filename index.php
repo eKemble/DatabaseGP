@@ -18,22 +18,25 @@
 
 
 <?php
-
-if(isset($_POST['submit'])){
-   if ($_POST['army'] == 1){
-      echo "<form action=\"../GroupProject/index.php\" method='post'>
-           <select name=\"unit\">
-           <option value=\"". /* Call value for unit id */ ."\" selected=\"selected\">". /*Call value for unit name + add on point value at the end*/ ."</option>
-           </select>"
-  // loop the above option tag to have a drop down selecter for the available army units
- <input type="submit" name="submit" value="Select">
-</form>
-   }
-}
+	$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password=") or die('Could not connect: ' . pg_last_error());
+	//if(isset($_POST['submit'])){
+	//   if ($_POST['army'] == 1){
+	      	echo "<form action=\"../GroupProject/index.php\" method='post'>
+	           <select name=\"unit\">";
+	       	$result = pg_query("SELECT unit_name,init_point_cost FROM warhammer.unit_list") or die('Query failed: ' . pg_last_error());
+			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
+			{
+				echo "<option value=\"" . $line["init_point_cost"] . "\" selected=\"selected\">" . $line["unit_name"] ." - ". $line["init_point_cost"] ."</option>";
+	        }	
+	        echo "</select>";
+	  // loop the above option tag to have a drop down selecter for the available army units
+	 		echo "	<input type=\"submit\" name=\"submit\" value=\"Select\">";
+			echo "		</form>";
+	//   }
+	//}
 
 	function add_unit_to_army($unit_id)
 	{
-		$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password=") or die('Could not connect: ' . pg_last_error()); //ADD SQL INFO
 		$result = pg_prepare($conn, "point_query", "SELECT init_point_cost FROM warhammer.unit_list WHERE unit_id=$1");
 		$result = pg_execute($conn, "point_query", array($unit_id));
 		$result_a = pg_fetch_array($result,0,PGSQL_ASSOC);
