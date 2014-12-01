@@ -18,7 +18,9 @@
 
 
 <?php
-	$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password=") or die('Could not connect: ' . pg_last_error());
+	$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password= ") or die('Could not connect: ' . pg_last_error());
+	$budget = 2000;
+
 	if(isset($_POST['submit'])){
 		add_unit_to_army($_POST['unit']);
 	}
@@ -43,20 +45,29 @@
 
 	print_army_table();
 
+	echo "<br>\nTotal Point Value: " . get_army_value() . "/" . $budget;
+	if(get_army_value() > $budget) {echo " (OVER BUDGET)\n";} else {echo "\n";}
+
 	pg_free_result($result);
 
 	function add_unit_to_army($unit_id)
 	{
-		$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password=") or die('Could not connect: ' . pg_last_error());
-		$result = pg_prepare($conn, "point_query", "SELECT init_point_cost FROM warhammer.unit_list WHERE unit_id=$1");
-		$result = pg_execute($conn, "point_query", array($unit_id));
+		$result = pg_prepare("point_query", "SELECT init_point_cost FROM warhammer.unit_list WHERE unit_id=$1");
+		$result = pg_execute("point_query", array($unit_id));
 		$result_a = pg_fetch_array($result,0,PGSQL_ASSOC);
 		$points = $result_a["init_point_cost"];
 
-		$result = pg_prepare($conn, "add_query", "INSERT INTO warhammer.user_army VALUES (DEFAULT,$1,null,$2)");
-		$result = pg_execute($conn, "add_query", array($unit_id,$points));
+		$result = pg_prepare("add_query", "INSERT INTO warhammer.user_army VALUES (DEFAULT,$1,null,$2)");
+		$result = pg_execute("add_query", array($unit_id,$points));
 		pg_free_result($result);
 
+	}
+
+	function get_army_value()
+	{
+		$result = pg_query("SELECT sum(point_cost) as point_total FROM warhammer.user_army");
+		$result_a = pg_fetch_array($result,0,PGSQL_ASSOC);
+		return $result_a["point_total"];
 	}
 
 	function print_army_table()
