@@ -158,8 +158,8 @@
 		
 		for ($i=1;$i<5;$i++)
 		{
-			$score1 += $army1[$i] * $multi1[$i];
-			$score2 += $army2[$i] * $multi2[$i];
+			$score1 += $army1[$i] + $multi1[$i];
+			$score2 += $army2[$i] + $multi2[$i];
 		}
 		
 		if($score1 > $score2)
