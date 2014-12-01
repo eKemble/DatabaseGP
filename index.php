@@ -57,7 +57,7 @@
 	pg_free_result($result);
    }
    
-      if ($_POST['army'] == 2){
+      elseif ($_POST['army'] == 2){
       	echo "<form action=\"index.php\" method='post'>
            <select name=\"unit\">\n";
        	$result = pg_query("SELECT unit_id,unit_name,init_point_cost FROM warhammer.unit_list WHERE army_id=2") or die('Query failed: ' . pg_last_error());
