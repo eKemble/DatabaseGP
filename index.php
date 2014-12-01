@@ -7,12 +7,30 @@
 <div id="header">
   <?php include 'header.php';?>
 </div>
+
+
+<h1 id="quote">Burn the Heretic. Kill the Mutant. Purge the Unclean!</h1>
 </head>
 
 <body>
-<h1>Burn the Heretic. Kill the Mutant. Purge the Unclean!</h1>
+<p>Army List Builder:</p>
+<br>
+
 
 <?php
+
+if(isset($_POST['submit'])){
+   if ($_POST['army'] == 1){
+      echo "<form action=\"../GroupProject/index.php\" method='post'>
+           <select name=\"unit\">
+           <option value=\"". /* Call value for unit id */ ."\" selected=\"selected\">". /*Call value for unit name + add on point value at the end*/ ."</option>
+           </select>"
+  // loop the above option tag to have a drop down selecter for the available army units
+ <input type="submit" name="submit" value="Select">
+</form>
+   }
+}
+
 	function add_unit_to_army($unit_id)
 	{
 		$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password=") or die('Could not connect: ' . pg_last_error()); //ADD SQL INFO
