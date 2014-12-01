@@ -9,5 +9,5 @@ The files for the website are index.php, header.php, calculator.php, and dice.ph
 
 Link to Eric's host of the project: https://babbage.cs.missouri.edu/~epkqmb/cs3380/GroupProject/index.php
 
--edit 11-30-14 @ 5:27pm:
-I've added a style sheet from an old project which I will tweak as I go to make the site look a little nicer for presentation. It shouldnt affect testing code for the php, so I'm holding off on adding it here until I finish up with it.
+-edit 11-30-14 @ 11:28pm:
+I've updated the css style sheet enough that things look okay, and getting everything else working is currently more important, so its up now. within your GroupProject folder, create a folder named 'css', and put the file in there, and it should work just fine
