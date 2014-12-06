@@ -11,88 +11,70 @@ CREATE TABLE unit_list(
    unit_name VARCHAR(30) NOT NULL,
    unit_id SERIAL NOT NULL PRIMARY KEY,
    unit_profile VARCHAR(20) NOT NULL,
-   unit_composition VARCHAR(30) NOT NULL,
+   unit_composition VARCHAR(30),  
    init_point_cost INT NOT NULL,
-   additional_unit_cost INT,
-   add_num_units INT, 
+   additional_unit_cost INT, -- Non-vehicles only
+   add_num_units INT, -- Non-vehicles only
    
 --------------------------
 -- Inside the outlined box
 --------------------------
-   weapon_skill INT NOT NULL,
+   front_armor INT, -- Vehicles only
+   side_armor INT, -- Vehicles only
+   rear_armor INT,  -- Vehicles only
+   weapon_skill INT,
    ballistic_skill INT NOT NULL,
-   strength INT NOT NULL,
-   toughness INT NOT NULL,
-   wounds INT NOT NULL,
-   initiative INT NOT NULL,
-   attacks INT NOT NULL,
-   leadership INT NOT NULL,
+   strength INT,
+   toughness INT,
+   wounds INT,
+   initiative INT,
+   attacks INT,
+   leadership INT,
    save INT
 -------------------------
 
 );
 
 --Army id of 1 = Space Marines
-
+--Army id of 2 = Orks
 INSERT INTO unit_list VALUES
-(1, 'Master of the Forge', default, 'HQ', '1 Master of the Forge', 100, null, null, 4, 5, 4, 4, 2, 4, 2, 10, 2),
-(1, 'Forgefather Vulkan HeStan', default, 'HQ', '1(Unique)', 190, null, null, 6, 5, 4, 4, 3, 5, 3, 10, 2),
-(1, 'Space Marine Chaplain', default, 'HQ', '1 Chaplain', 100, null, null, 5, 4, 4, 4, 2, 4, 2, 10, 3),
-(1, 'Tactical Squad', default, 'Troops', '5 Space Marines', 90, 16, 5, 4, 4, 4, 4, 1, 4, 1, 8, 3),
-(1, 'Scout Squad', default, 'Troops', '5 Scouts', 75, 13, 5, 3, 3, 4, 4, 1, 4, 1, 8, 4),
-(1, 'Terminator Squad', default, 'Elites', '5 Terminators', 200, 40, 5, 4, 4, 4, 4, 1, 4, 2, 9, 2),
-(1, 'Techmarine', default, 'Elites', '1 Techmarine', 50, null, null, 4, 4, 4, 4, 1, 4, 1, 8, 2),
-(1, 'Assault Squad', default, 'Fast Attack', '5 Space Marines', 100, 18, 5, 4, 4, 4, 4, 1, 4, 1, 8, 3),
+(1, 'Master of the Forge', default, 'HQ', '1 Master of the Forge', 100, null, null, null, null, null, 4, 5, 4, 4, 2, 4, 2, 10, 2),
+(1, 'Forgefather Vulkan HeStan', default, 'HQ', '1(Unique)', 190, null, null, null, null, null, 6, 5, 4, 4, 3, 5, 3, 10, 2),
+(1, 'Space Marine Chaplain', default, 'HQ', '1 Chaplain', 100, null, null, null, null, null, 5, 4, 4, 4, 2, 4, 2, 10, 3),
+(1, 'Tactical Squad', default, 'Troops', '5 Space Marines', 90, 16, 5, null, null, null, 4, 4, 4, 4, 1, 4, 1, 8, 3),
+(1, 'Scout Squad', default, 'Troops', '5 Scouts', 75, 13, 5, null, null, null, 3, 3, 4, 4, 1, 4, 1, 8, 4),
+(1, 'Terminator Squad', default, 'Elites', '5 Terminators', 200, 40, 5, null, null, null, 4, 4, 4, 4, 1, 4, 2, 9, 2),
+(1, 'Techmarine', default, 'Elites', '1 Techmarine', 50, null, null, null, null, null, 4, 4, 4, 4, 1, 4, 1, 8, 2),
+(1, 'Assault Squad', default, 'Fast Attack', '5 Space Marines', 100, 18, 5, null, null, null, 4, 4, 4, 4, 1, 4, 1, 8, 3),
 
 
-(2, 'Warboss', default, 'HQ', '1 Warboss', 60, null, null, 5, 2, 5, 5, 3, 4, 4, 9, 6),
-(2, 'Big Mek', default, 'HQ', '1 Big Mek', 35, null, null, 4, 2, 4, 4, 2, 3, 3, 8, 6),
-(2, 'Weirdboy', default, 'HQ', '1 Weirdboy', 55, null, null, 4, 2, 4, 4, 2, 3, 3, 7, 6),
-(2, 'Ork Boyz', default, 'Troops', '10 Ork Boyz', 60, 6, 20, 4, 2, 3, 4, 1, 2, 2, 7, 6),
-(2, 'Gretchin', default, 'Troops', '10 Gretchin', 30, 3, 20, 2, 3, 2, 2, 1, 2, 1, 5, null),
-(2, 'Nobz', default, 'Elites', '3 Nobz', 60, 20, 7, 4, 2, 4, 4, 2, 3, 3, 7, 6),
-(2, 'Burna Boyz', default, 'Elites', '5 Burna Boyz', 75, 15, 10, 4, 2, 3, 4, 1, 2, 2, 7, 6),
-(2, 'Tankbustas', default, 'Elites', '5 Tankbusta Boyz', 75, 15, 10, 4, 2, 3, 4, 1, 2, 2, 7, 6),
-(2, 'Warbikers', default, 'Fast Attack', '3 Warbikes', 75, 25, 9, 4, 2, 3, 4, 1, 2, 2, 7, 4),
-(2, 'Deffkoptas', default, 'Fast Attack', '1 Deffkopta', 35, 35, 4, 4, 2, 3, 4, 2, 2, 2, 7, 4);
+(2, 'Warboss', default, 'HQ', '1 Warboss', 60, null, null, null, null, null, 5, 2, 5, 5, 3, 4, 4, 9, 6),
+(2, 'Big Mek', default, 'HQ', '1 Big Mek', 35, null, null, null, null, null, 4, 2, 4, 4, 2, 3, 3, 8, 6),
+(2, 'Weirdboy', default, 'HQ', '1 Weirdboy', 55, null, null, null, null, null, 4, 2, 4, 4, 2, 3, 3, 7, 6),
+(2, 'Ork Boyz', default, 'Troops', '10 Ork Boyz', 60, 6, 20, null, null, null, 4, 2, 3, 4, 1, 2, 2, 7, 6),
+(2, 'Gretchin', default, 'Troops', '10 Gretchin', 30, 3, 20, null, null, null, 2, 3, 2, 2, 1, 2, 1, 5, null),
+(2, 'Nobz', default, 'Elites', '3 Nobz', 60, 20, 7, null, null, null, 4, 2, 4, 4, 2, 3, 3, 7, 6),
+(2, 'Burna Boyz', default, 'Elites', '5 Burna Boyz', 75, 15, 10, null, null, null, 4, 2, 3, 4, 1, 2, 2, 7, 6),
+(2, 'Tankbustas', default, 'Elites', '5 Tankbusta Boyz', 75, 15, 10, null, null, null, 4, 2, 3, 4, 1, 2, 2, 7, 6),
+(2, 'Warbikers', default, 'Fast Attack', '3 Warbikes', 75, 25, 9, null, null, null, 4, 2, 3, 4, 1, 2, 2, 7, 4),
+(2, 'Deffkoptas', default, 'Fast Attack', '1 Deffkopta', 35, 35, 4, null, null, null, 4, 2, 3, 4, 2, 2, 2, 7, 4),
+
+(1, 'Rhino', default, 'Dedicated Transport', null, 35, null, null, 11, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Drop Pod', default, 'Dedicated Transport', null, 35, null, null, 12, 12, 12, null, 4, null, null, null, null, null, null, null),
+(1, 'Dreadnought', default, 'Elite', null, 105, null, null, 12, 12, 10, 4, 4, 6, null, null, 4, 2, null, null),
+(1, 'Land Raider', default, 'Heavy Support', null, 250, null, null, 14, 14, 14, null, 4, null, null, null, null, null, null, null),
+(1, 'Predator', default, 'Heavy Support', null, 60, null, null, 13, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Whirlwind', default, 'Heavy Support', null, 85, null, null, 11, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Vindicator', default, 'Heavy Support', null, 115, null, null, 13, 11, 10, null, 4, null, null, null, null, null, null, null),
+
+(2, 'Trukk', default, 'Dedicated Transport', null, 35, null, null, 10, 10, 10, null, 2, null, null, null, null, null, null, null),
+(2, 'Battlewagon', default, 'Heavy Support', null, 90, null, null, 14, 12, 10, null, 2, null, null, null, null, null, null, null),
+(2, 'Deff Dread', default, 'Heavy Support', null, 75, null, null, 12, 12, 10, 4, 2, 5, null, null, 2, 3, null, null),
+(2, 'Killa Kans', default, 'Heavy Support', null, 35, null, null, 11, 11, 10, 2, 3, 5, null, null, 2, 2, null, null),
+(2, 'Looted Wagon', default, 'Heavy Support', null, 35, null, null, 11, 11, 10, null, 2, null, null, null, null, null, null, null);
 
 DROP TABLE IF EXISTS vehicle_list;
-CREATE TABLE vehicle_list(
-
-   army_id INT NOT NULL,
-   vehicle_name VARCHAR(30) NOT NULL,
-   vehicle_id SERIAL NOT NULL PRIMARY KEY, 
-   vehicle_profile VARCHAR(30),
-   init_point_cost INT NOT NULL,
-   
---------------------------
--- Inside the outlined box
---------------------------
-   weapon_skill  INT,
-   ballistic_skill INT NOT NULL,
-   strength INT,
-   front_armor INT NOT NULL,
-   side_armor INT NOT NULL,
-   rear_armor INT NOT NULL,
-   initiative  INT,
-   attacks INT
-);
-
-INSERT INTO vehicle_list VALUES
-( 1, 'Rhino', default, 'Dedicated Transport', 35, null, 4, null, 11, 11, 10, null, null),
-( 1, 'Drop Pod', default, 'Dedicated Transport', 35, null, 4, null, 12, 12, 12, null, null),
-( 1, 'Dreadnought', default, 'Elite', 105, 4, 4, 6, 12, 12, 10, 4, 2),
-( 1, 'Land Raider', default, 'Heavy Support', 250, null, 4, null, 14, 14, 14, null, null),
-( 1, 'Predator', default, 'Heavy Support', 60, null, 4, null, 13, 11, 10, null, null),
-( 1, 'Whirlwind', default, 'Heavy Support', 85, null, 4, null, 11, 11, 10, null, null),
-( 1, 'Vindicator', default, 'Heavy Support', 115, null, 4, null, 13, 11, 10, null, null),
-
-( 2, 'Trukk', default, 'Dedicated Transport', 35, null, 2, null, 10, 10, 10, null, null),
-( 2, 'Battlewagon', default, 'Heavy Support', 90, null, 2, null, 14, 12, 10, null, null),
-( 2, 'Deff Dread', default, 'Heavy Support', 75, 4, 2, 5, 12, 12, 10, 2, 3),
-( 2, 'Killa Kans', default, 'Heavy Support', 35, 2, 3, 5, 11, 11, 10, 2, 2),
-( 2, 'Looted Wagon', default, 'Heavy Support', 35, null, 2, null, 11, 11, 10, null, null);
-
+-- Merged the unit list and vehicle list, dont need it anymore, leaving code in for a bit
 
    -- Separate table for special rules
    -- No time to add in special rules
