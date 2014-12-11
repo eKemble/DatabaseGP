@@ -129,7 +129,10 @@
 			echo "\t<tr>\n";
 			foreach ($line as $col_value)
 			{
-				echo "\t\t<td>$col_value</td>\n";
+				if($col_value == null)
+				   { echo "\t\t<td>-</td>\n";}
+				else
+				   echo "\t\t<td>$col_value</td>\n";
 			}
 			echo "\t</tr>\n";
 		}
