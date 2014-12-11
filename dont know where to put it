@@ -18,3 +18,162 @@
 		echo "		</form>\n";
 		
    ///cai
+
+
+
+<?php
+	//$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password= ") or die('Could not connect: ' . pg_last_error());
+	include("../../secure/database.php");
+    $conn = pg_connect(HOST." ".DBNAME." ".USERNAME." ".PASSWORD) or die('Could not connect: ' . pg_last_error());
+	$budget = 800;
+	if(isset($_POST['submit'])){
+		add_unit_to_army($_POST['unit'],$army_val);
+		
+	  if($_POST['army'] != null)
+		$army_val = $_POST['army'];
+	}
+	if(isset($_POST['clear'])){
+	
+	   if($army_val == 1)
+	   {
+		pg_query("DELETE FROM warhammer.space_marine_army");
+	   }
+	   
+	   	   if($army_val == 2)
+	   {
+		pg_query("DELETE FROM warhammer.ork_army");
+	   }
+	}
+
+    echo "POST--> " . $army_val;
+
+
+   if ($army_val == 1){
+      	echo "<form action=\"index.php\" method='post'>
+           <select name=\"unit\">\n";
+       	$result = pg_query("SELECT unit_id,unit_name,init_point_cost FROM warhammer.unit_list WHERE army_id=1 ORDER BY unit_profile ASC, unit_name ASC") or die('Query failed: ' . pg_last_error());
+		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
+		{
+			echo "\t\t<option value=\"" . $line["unit_id"] . "\" selected=\"selected\">" . $line["unit_name"] ." - ". $line["init_point_cost"] ."</option>\n";
+        }	
+        echo "</select>\n";
+  // loop the above option tag to have a drop down selecter for the available army units
+ 		echo "	<input type=\"submit\" name=\"submit\" value=\"Add Unit\">\n";
+ 		echo "	<input type=\"submit\" name=\"clear\" value=\"Clear All\">\n";
+		echo "		</form>\n";
+	//}
+	
+	print_army_table($army_val);
+
+	echo "<br>\nTotal Point Value: " . get_army_value($army_val) . "/" . $budget;
+
+	if(get_army_value() > $budget) {echo " (OVER BUDGET)\n";} else {echo "\n";}
+	pg_free_result($result);
+   }
+   
+   elseif ($army_val == 2){
+      	echo "<form action=\"index.php\" method='post'>
+           <select name=\"unit\">\n";
+       	$result = pg_query("SELECT unit_id,unit_name,init_point_cost FROM warhammer.unit_list WHERE army_id=2") or die('Query failed: ' . pg_last_error());
+		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
+		{
+			echo "\t\t<option value=\"" . $line["unit_id"] . "\" selected=\"selected\">" . $line["unit_name"] ." - ". $line["init_point_cost"] ."</option>\n";
+        }	
+        echo "</select>\n";
+  // loop the above option tag to have a drop down selecter for the available army units
+ 		echo "	<input type=\"submit\" name=\"submit\" value=\"Add Unit\">\n";
+ 		echo "	<input type=\"submit\" name=\"clear\" value=\"Clear All\">\n";
+		echo "		</form>\n";
+	//}
+	
+	print_army_table($army_val);
+
+	echo "<br>\nTotal Point Value: " . get_army_value($army_val) . "/" . $budget;
+
+	if(get_army_value() > $budget) {echo " (OVER BUDGET)\n";} else {echo "\n";}
+	pg_free_result($result);
+   }
+   
+   else{
+        echo "
+        <form action=\"index.php\" method='post'>
+        <select name=\"army\">
+        <option value=\"1\">Space Marines</option>
+        <option value=\"2\">Orks</option>
+        </select> <br>";
+        echo "	<input type=\"submit\" name=\"submit\" value=\"Select\">\n";
+   }
+
+	function add_unit_to_army($unit_id, $army_id)
+	{
+		$result = pg_prepare("point_query", "SELECT init_point_cost FROM warhammer.unit_list WHERE unit_id=$1");
+		$result = pg_execute("point_query", array($unit_id));
+		$result_a = pg_fetch_array($result,0,PGSQL_ASSOC);
+		$points = $result_a["init_point_cost"];
+		
+		if ($army_id == 1)
+		{
+	  	   $result = pg_prepare("add_query", "INSERT INTO warhammer.space_marine_army VALUES (DEFAULT,$1,null,$2)");
+		   $result = pg_execute("add_query", array($unit_id,$points));
+		}
+		
+		if ($army_id == 2)
+		{
+	  	   $result = pg_prepare("add_query", "INSERT INTO warhammer.ork_army VALUES (DEFAULT,$1,null,$2)");
+		   $result = pg_execute("add_query", array($unit_id,$points));
+		}
+		
+		pg_free_result($result);
+	}
+
+	function get_army_value($army_id)
+	{
+		if($army_id == 1)
+		{
+		    $result = pg_query("SELECT sum(point_cost) as point_total FROM warhammer.space_marine_army");
+		}
+		
+		if($army_id == 2)
+		{
+		    $result = pg_query("SELECT sum(point_cost) as point_total FROM warhammer.ork_army");
+		}
+		$result_a = pg_fetch_array($result,0,PGSQL_ASSOC);
+		return $result_a["point_total"];
+	}
+
+	function print_army_table($army_id)
+	{
+		//this query is pretty disgusting but the code isn't due yet
+		
+		if($army_id == 1)
+		{
+           $result = pg_query("SELECT unit_name as \"Name\",unit_profile as \"Profile\",unit_composition as \"Composition\",unit_list.front_armor as \"FA\",unit_list.side_armor as \"SA\",unit_list.rear_armor as \"RA\",unit_list.weapon_skill as \"WS\",unit_list.ballistic_skill as \"BS\",unit_list.strength as \"S\",toughness as \"T\",wounds as \"W\",initiative as \"I\",attacks as \"A\",leadership as \"L\",unit_list.save as \"S\", weapon_name as \"Weapon Name\",range as \"Range\",weapons.strength as \"Str.\",armor_penetration as \"AP\",space_marine_army.point_cost as \"Point Cost\" FROM warhammer.space_marine_army INNER JOIN warhammer.unit_list ON (warhammer.space_marine_army.unit_id = warhammer.unit_list.unit_id) LEFT JOIN warhammer.weapons ON (warhammer.space_marine_army.weapon_id = warhammer.weapons.weapon_id) ORDER BY point_cost DESC, unit_composition ASC") or die('Query failed: ' . pg_last_error());		// Printing results in HTML
+		}
+		
+		if($army_id == 2)
+		{
+	       $result = pg_query("SELECT unit_name as \"Name\",unit_profile as \"Profile\",unit_composition as \"Composition\",unit_list.front_armor as \"FA\",unit_list.side_armor as \"SA\",unit_list.rear_armor as \"RA\",unit_list.weapon_skill as \"WS\",unit_list.ballistic_skill as \"BS\",unit_list.strength as \"S\",toughness as \"T\",wounds as \"W\",initiative as \"I\",attacks as \"A\",leadership as \"L\",unit_list.save as \"S\", weapon_name as \"Weapon Name\",range as \"Range\",weapons.strength as \"Str.\",armor_penetration as \"AP\",ork_army.point_cost as \"Point Cost\" FROM warhammer.ork_army INNER JOIN warhammer.unit_list ON (warhammer.ork_army.unit_id = warhammer.unit_list.unit_id) LEFT JOIN warhammer.weapons ON (warhammer.ork_army.weapon_id = warhammer.weapons.weapon_id) ORDER BY point_cost DESC, unit_composition ASC") or die('Query failed: ' . pg_last_error());		// Printing results in HTML
+		}
+		echo "<table border=\"1\">\n";
+		echo "\t<tr>\n";
+		for ($i = 0; $i < pg_num_fields($result); $i++)
+		{
+			$colname = pg_field_name($result,$i);
+			echo "\t\t<th>$colname</th>\n";
+		}
+		echo "\t</tr>\n";
+		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
+		{
+			echo "\t<tr>\n";
+			foreach ($line as $col_value)
+			{
+				if($col_value == null)
+				   { echo "\t\t<td>-</td>\n";}
+				else
+				   echo "\t\t<td>$col_value</td>\n";
+			}
+			echo "\t</tr>\n";
+		}
+		echo "</table>\n";
+	}
+?>
