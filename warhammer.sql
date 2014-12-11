@@ -59,19 +59,19 @@ INSERT INTO unit_list VALUES
 (2, 'Warbikers', default, 'Fast Attack', '3 Warbikes', 75, 25, 9, null, null, null, 4, 2, 3, 4, 1, 2, 2, 7, 4),
 (2, 'Deffkoptas', default, 'Fast Attack', '1 Deffkopta', 35, 35, 4, null, null, null, 4, 2, 3, 4, 2, 2, 2, 7, 4),
 
-(1, 'Rhino', default, 'Dedicated Transport', null, 35, null, null, 11, 11, 10, null, 4, null, null, null, null, null, null, null),
-(1, 'Drop Pod', default, 'Dedicated Transport', null, 35, null, null, 12, 12, 12, null, 4, null, null, null, null, null, null, null),
-(1, 'Dreadnought', default, 'Elite', null, 105, null, null, 12, 12, 10, 4, 4, 6, null, null, 4, 2, null, null),
-(1, 'Land Raider', default, 'Heavy Support', null, 250, null, null, 14, 14, 14, null, 4, null, null, null, null, null, null, null),
-(1, 'Predator', default, 'Heavy Support', null, 60, null, null, 13, 11, 10, null, 4, null, null, null, null, null, null, null),
-(1, 'Whirlwind', default, 'Heavy Support', null, 85, null, null, 11, 11, 10, null, 4, null, null, null, null, null, null, null),
-(1, 'Vindicator', default, 'Heavy Support', null, 115, null, null, 13, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Rhino', default, 'Dedicated Transport', 'Vehicle', 35, null, null, 11, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Drop Pod', default, 'Dedicated Transport', 'Vehicle', 35, null, null, 12, 12, 12, null, 4, null, null, null, null, null, null, null),
+(1, 'Dreadnought', default, 'Elite', 'Vehicle', 105, null, null, 12, 12, 10, 4, 4, 6, null, null, 4, 2, null, null),
+(1, 'Land Raider', default, 'Heavy Support', 'Vehicle', 250, null, null, 14, 14, 14, null, 4, null, null, null, null, null, null, null),
+(1, 'Predator', default, 'Heavy Support', 'Vehicle', 60, null, null, 13, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Whirlwind', default, 'Heavy Support', 'Vehicle', 85, null, null, 11, 11, 10, null, 4, null, null, null, null, null, null, null),
+(1, 'Vindicator', default, 'Heavy Support', 'Vehicle', 115, null, null, 13, 11, 10, null, 4, null, null, null, null, null, null, null),
 
-(2, 'Trukk', default, 'Dedicated Transport', null, 35, null, null, 10, 10, 10, null, 2, null, null, null, null, null, null, null),
-(2, 'Battlewagon', default, 'Heavy Support', null, 90, null, null, 14, 12, 10, null, 2, null, null, null, null, null, null, null),
-(2, 'Deff Dread', default, 'Heavy Support', null, 75, null, null, 12, 12, 10, 4, 2, 5, null, null, 2, 3, null, null),
-(2, 'Killa Kans', default, 'Heavy Support', null, 35, null, null, 11, 11, 10, 2, 3, 5, null, null, 2, 2, null, null),
-(2, 'Looted Wagon', default, 'Heavy Support', null, 35, null, null, 11, 11, 10, null, 2, null, null, null, null, null, null, null);
+(2, 'Trukk', default, 'Dedicated Transport', 'Vehicle', 35, null, null, 10, 10, 10, null, 2, null, null, null, null, null, null, null),
+(2, 'Battlewagon', default, 'Heavy Support', 'Vehicle', 90, null, null, 14, 12, 10, null, 2, null, null, null, null, null, null, null),
+(2, 'Deff Dread', default, 'Heavy Support', 'Vehicle', 75, null, null, 12, 12, 10, 4, 2, 5, null, null, 2, 3, null, null),
+(2, 'Killa Kans', default, 'Heavy Support', 'Vehicle', 35, null, null, 11, 11, 10, 2, 3, 5, null, null, 2, 2, null, null),
+(2, 'Looted Wagon', default, 'Heavy Support', 'Vehicle', 35, null, null, 11, 11, 10, null, 2, null, null, null, null, null, null, null);
 
 DROP TABLE IF EXISTS vehicle_list;
 -- Merged the unit list and vehicle list, dont need it anymore, leaving code in for a bit
@@ -157,6 +157,22 @@ INSERT INTO weapons VALUES
 
 DROP TABLE IF EXISTS user_army;
 CREATE TABLE user_army(
+   unit_num SERIAL NOT NULL PRIMARY KEY,
+   unit_id INT REFERENCES unit_list NOT NULL,
+   weapon_id INT REFERENCES weapons,
+   point_cost INT NOT NULL
+);
+
+DROP TABLE IF EXISTS space_marine_army;
+CREATE TABLE space_marine_army(
+   unit_num SERIAL NOT NULL PRIMARY KEY,
+   unit_id INT REFERENCES unit_list NOT NULL,
+   weapon_id INT REFERENCES weapons,
+   point_cost INT NOT NULL
+);
+
+DROP TABLE IF EXISTS ork_army;
+CREATE TABLE ork_army(
    unit_num SERIAL NOT NULL PRIMARY KEY,
    unit_id INT REFERENCES unit_list NOT NULL,
    weapon_id INT REFERENCES weapons,
