@@ -23,56 +23,88 @@
 		
 <?php
 	//used to simplify each army into an array of the types of units it contains
-	//returns the array of the army as such 0: Army ID 1: Assault 2: Heavy 3: Melee 4: Transport 5: Heavy Support
+	//returns the array of the army as such 0: Army ID 1: HQ 2: Troops 3: Elites 4: Fast Attack 5: Heavy Support 6: Transport
 	function simpArmy($army)
 	{
 		$army_makeup[] = 0;
 		
 		$army_makeup[0] = $army;
 		
-		if($army = 1)
+		if($army == 1)
 		{
-			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND (weapon_id = 4 OR weapon_id = 5 OR weapon_id = 6 OR weapon_id = 12 OR weapon_id = 13
-			OR weapon_id = 15 OR weapon_id = 17 OR weapon_id = 18 OR weapon_id = 20 OR weapon_id = 21 OR weapon_id = 23 OR weapon_id = 27 OR weapon_id = 28 OR weapon_id = 30
-			OR weapon_id = 32 OR weapon_id = 34)");
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND unit_profile LIKE 'HQ'");
 			
 			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
 			
 			$army_makeup[1] = $result_a[0];
 			
-			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND (weapon_id = 1 OR weapon_id = 2 OR weapon_id = 3 OR weapon_id = 9 OR weapon_id = 10 OR weapon_id = 11 OR weapon_id = 14
-			OR weapon_id = 16 OR weapon_id = 19 OR weapon_id = 22 OR weapon_id = 24 OR weapon_id = 25 OR weapon_id = 26 OR weapon_id = 26 OR weapon_id = 31 OR weapon_id =  33 OR weapon_id = 34)");
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND unit_profile LIKE 'Troops'");
 			
 			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
 			
 			$army_makeup[2] = $result_a[0];
 			
-			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND (weapon_id = 7 OR weapon_id = 8 OR weapon_id = 29)");
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND unit_profile LIKE 'Elites'");
 			
 			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
 			
 			$army_makeup[3] = $result_a[0];
+			
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND unit_profile LIKE 'Fast Attack'");
+			
+			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
+			
+			$army_makeup[4] = $result_a[0];
+			
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND unit_profile LIKE 'Heavy Support'");
+			
+			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
+			
+			$army_makeup[5] = $result_a[0];
+			
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 1 AND unit_profile LIKE 'Transport'");
+			
+			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
+			
+			$army_makeup[6] = $result_a[0];
 		}
-		else if($army = 2)
+		else if($army == 2)
 		{
-			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND (weapon_id = 1 OR weapon_id = 3 OR weapon_id = 4 OR weapon_id = 5 OR weapon_id = 6 OR weapon_id = 8 OR weapon_id = 12
-			OR weapon_id = 15 OR weapon_id = 16 OR weapon_id = 17 OR weapon_id = 18 OR weapon_id = 19 OR weapon_id = 20)");
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND unit_profile LIKE 'HQ'");
 			
 			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
 			
 			$army_makeup[1] = $result_a[0];
 			
-			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND (weapon_id = 2 OR weapon_id = 7 OR weapon_id = 9 OR weapon_id = 10 OR weapon_id = 11 OR weapon_id = 13  OR weapon_id = 21)");
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND unit_profile LIKE 'Troops'");
 			
 			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
 			
 			$army_makeup[2] = $result_a[0];
 			
-			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND weapon_id = 14");
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND unit_profile LIKE 'Elites'");
 			
 			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
 			
 			$army_makeup[3] = $result_a[0];
+			
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND unit_profile LIKE 'Fast Attack'");
+			
+			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
+			
+			$army_makeup[4] = $result_a[0];
+			
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND unit_profile LIKE 'Heavy Support'");
+			
+			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
+			
+			$army_makeup[5] = $result_a[0];
+			
+			$result = pg_query("SELECT SUM(point_cost) FROM warhammer.user_army LEFT OUTER JOIN warhammer.unit_list WHERE army_id = 2 AND unit_profile LIKE 'Transport'");
+			
+			$result_a = pg_fetch_array($result, 0 , PGSQL_NUM);
+			
+			$army_makeup[6] = $result_a[0];
 		}
 		
 		pg_free_result($result);
@@ -96,30 +128,30 @@
 		{
 			if($terrain == 1)
 			{
-				$multi1[] = array(0, 10, 10, 2.5, 15, 20);
+				$multi1[] = array(0, 10, 7.5, 10, 5, 20, 15);
 			}
 			else if($terrain == 2)
 			{
-				$multi1[] = array(0, 7.5, 7.5, 5, 10, 15);
+				$multi1[] = array(0, 10, 10, 10, 7.5, 15, 10);
 			}
 			else if ($terrain == 3)
 			{
-				$multi1[] = array(0, 5, 5, 7.5, 15, 20);
+				$multi1[] = array(0, 10, 12.5, 10, 10, 10, 10);
 			}
 		}
 		else
 		{
 			if($terrain == 1)
 			{
-				$multi1[] = array(0, 7.5, 7.5, 10, 15, 20);
+				$multi1[] = array(0, 10, 5, 10, 10, 20, 15);
 			}
 			else if($terrain == 2)
 			{
-				$multi1[] = array(0, 5, 5, 10, 10, 15);
+				$multi1[] = array(0, 10, 7.5, 10, 12.5, 15, 10);
 			}
 			else if ($terrain == 3)
 			{
-				$multi1[] = array(0, 5, 5, 15, 15, 20);
+				$multi1[] = array(0, 10, 10, 10, 15, 10, 10);
 			}
 		}
 		
@@ -127,30 +159,30 @@
 		{
 			if($terrain == 1)
 			{
-				$multi2[] = array(0, 10, 10, 2.5, 15, 20);
+				$multi1[] = array(0, 10, 5, 10, 7.5, 20, 15);
 			}
 			else if($terrain == 2)
 			{
-				$multi2[] = array(0, 7.5, 7.5, 5, 10, 15);
+				$multi1[] = array(0, 10, 7.5, 10, 10, 15, 10);
 			}
 			else if ($terrain == 3)
 			{
-				$multi2[] = array(0, 5, 5, 7.5, 15, 20);
+				$multi1[] = array(0, 10, 10, 10, 12.5, 10, 10);
 			}
 		}
 		else
 		{
 			if($terrain == 1)
 			{
-				$multi2[] = array(0, 7.5, 7.5, 10, 15, 20);
+				$multi1[] = array(0, 10, 5, 10, 10, 20, 15);
 			}
 			else if($terrain == 2)
 			{
-				$multi2[] = array(0, 5, 5, 10, 10, 15);
+				$multi1[] = array(0, 10, 7.5, 10, 12.5, 15, 10);
 			}
 			else if ($terrain == 3)
 			{
-				$multi2[] = array(0, 5, 5, 15, 15, 20);
+				$multi1[] = array(0, 10, 10, 10, 15, 10, 10);
 			}
 		}
 		
@@ -158,8 +190,8 @@
 		
 		for ($i=1;$i<5;$i++)
 		{
-			$score1 += $army1[$i] + $multi1[$i];
-			$score2 += $army2[$i] + $multi2[$i];
+			$score1 += $army1[$i] * $multi1[$i];
+			$score2 += $army2[$i] * $multi2[$i];
 		}
 		
 		if($score1 > $score2)
@@ -178,7 +210,8 @@
 	
 	if(isset($_POST['submit']))
 	{
-		$conn = pg_connect("host=dbhost-pgsql.cs.missouri.edu port=5432 user= password= ") or die('Could not connect: ' . pg_last_error()); //ADD SQL INFO
+		include("../../secure/database.php");
+		$conn = pg_connect(HOST." ".DBNAME." ".USERNAME." ".PASSWORD) or die('Could not connect: ' . pg_last_error());
 		
 		$army1 = $_POST['army1'];
 		$army2 = $_POST['army2'];
